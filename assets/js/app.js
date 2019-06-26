@@ -13,15 +13,16 @@ function getData() {
     
     swapi.getSwapiData()
     .then(response => {
-        /* if() {
-            // Hata mesajı
+        if(response.people.detail === "Not found" || response.film.detail === "Not found") {
+            console.warn('HTTP 404 NOT FOUND');
+            loadingMessage[0].outerHTML = 'WARNING';
+            loadingMessage[1].outerHTML = 'WARNING';
         } else {
-            
-        } */
-        ui.showPeople(response.people.results);
-        ui.showFilm(response.film.results);
-        loadingMessage[0].remove();
-        loadingMessage[1].remove();
+            ui.showPeople(response.people.results);
+            ui.showFilm(response.film.results);
+            loadingMessage[0].remove();
+            loadingMessage[1].remove();
+        }
     })
     .catch(err => console.log(err));    
 }
